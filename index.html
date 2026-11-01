@@ -8,183 +8,50 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-    <!-- إعدادات تطبيق الويب وتثبيته كتطبيق موبايل (PWA) -->
+    <!-- إعدادات تطبيق الويب والتثبيت (PWA) -->
     <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%D8%B3%D9%86%D8%B7%D8%B1%20%D8%A7%D9%84%D8%B5%D9%81%D8%A1%22%2C%22short_name%22%3A%22%D8%A7%D9%84%D8%B5%D9%81%D8%A1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f0f4f8%22%2C%22theme_color%22%3A%22%23007bff%22%7D">
     <meta name="theme-color" content="#007bff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
-        body {
-            font-family: 'Cairo', Tahoma, sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 720px;
-            box-sizing: border-box;
-        }
-        .brand-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .brand-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.35);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #495057;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 13px;
-            font-family: inherit;
-            background-color: #fff;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 5px;
-        }
+        body { font-family: 'Cairo', Tahoma, sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); width: 100%; max-width: 720px; box-sizing: border-box; }
+        .brand-header { text-align: center; margin-bottom: 20px; }
+        .brand-icon { width: 60px; height: 60px; background-color: #007bff; color: white; font-size: 18px; font-weight: bold; display: flex; justify-content: center; align-items: center; border-radius: 50%; margin: 0 auto 10px auto; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.35); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #495057; font-weight: bold; font-size: 13px; }
+        input, select, textarea { width: 100%; padding: 11px; border: 1px solid #ced4da; border-radius: 8px; box-sizing: border-box; font-size: 13px; font-family: inherit; background-color: #fff; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 5px; }
         button:hover { background-color: #0056b3; }
-        
-        .back-btn {
-            background-color: #6c757d;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 15px;
-            display: inline-block;
-            width: auto;
-        }
+        .back-btn { background-color: #6c757d; color: white; padding: 6px 12px; border: none; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; margin-bottom: 15px; display: inline-block; width: auto; }
         .back-btn:hover { background-color: #5a6268; }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        .menu-card {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 20px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .menu-card:hover {
-            border-color: #007bff;
-            background-color: #f1f7ff;
-            transform: translateY(-2px);
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .menu-card { background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px 10px; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+        .menu-card:hover { border-color: #007bff; background-color: #f1f7ff; transform: translateY(-2px); }
         .menu-card .icon { font-size: 24px; margin-bottom: 8px; }
         .menu-card .title { font-size: 13px; font-weight: bold; color: #2c3e50; }
-
-        .announcement-box {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-bottom: 15px;
-            text-align: right;
-        }
-
+        .announcement-box { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; text-align: right; }
         .sub-page { display: none; }
         .dashboard-view, .teacher-view, .parent-view { display: none; text-align: right; }
-
-        .custom-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 12px;
-        }
-        .custom-table th, .custom-table td {
-            border: 1px solid #dee2e6;
-            padding: 8px;
-            text-align: center;
-        }
+        .custom-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+        .custom-table th, .custom-table td { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
         .custom-table th { background-color: #f8f9fa; color: #495057; }
-        
-        .question-box {
-            background: #f8f9fa;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
+        .question-box { background: #f8f9fa; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
         .attendance-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
         .btn-checkin { background-color: #28a745; }
         .btn-checkout { background-color: #dc3545; }
-        .chat-box {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            max-height: 180px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            font-size: 12px;
-        }
+        .chat-box { background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; padding: 10px; max-height: 180px; overflow-y: auto; margin-bottom: 10px; font-size: 12px; }
     </style>
 </head>
 <body>
-
     <div class="card">
-        <!-- 1. واجهة تسجيل الدخول -->
         <div id="loginView">
             <div class="brand-header">
                 <div class="brand-icon">الصفا</div>
                 <div style="font-size: 20px; font-weight: bold; color: #2c3e50; margin: 0;">سنتر الصفا</div>
-                <!-- تم حذف كلمة الذكية من هنا بناءً على طلبك -->
                 <div style="font-size: 12px; color: #6c757d; margin-top: 3px;">منصة الإدارة التعليمية</div>
             </div>
-
             <div class="form-group">
                 <label>اختر صفة الدخول:</label>
                 <select id="roleSelect">
@@ -194,7 +61,6 @@
                     <option value="مدير">مدير</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label>اسم المستخدم</label>
                 <input type="text" id="usernameInput" placeholder="أدخل اسم المستخدم">
@@ -203,43 +69,24 @@
                 <label>كلمة المرور</label>
                 <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
             </div>
-
             <button type="button" id="loginBtn">تسجيل الدخول</button>
             <div id="errorMsg" style="text-align:center; color:red; font-size:12px; margin-top:10px; font-weight:bold;"></div>
         </div>
 
-        <!-- ================= 2. لوحة تحكم الطالب ================= -->
         <div id="dashboardView" class="dashboard-view">
             <div class="brand-header">
                 <h2 style="color: #2c3e50; margin: 0; font-size: 18px;">أهلاً بك، <span id="studentDisplayName"></span> 👋</h2>
                 <p id="studentGradeText" style="color: #6c757d; font-size: 12px; margin: 3px 0 0 0;"></p>
             </div>
-
-            <div class="announcement-box">
-                📢 <strong>إعلانات السنتر:</strong> يرجى متابعة جداول الامتحانات الأسبوعية وحضور الحصص في مواعيدها المحددة.
-            </div>
-
+            <div class="announcement-box">📢 <strong>إعلانات السنتر:</strong> يرجى متابعة جداول الامتحانات الأسبوعية وحضور الحصص في مواعيدها المحددة.</div>
             <div id="studentMainMenu">
                 <div class="menu-grid">
-                    <div class="menu-card" onclick="showStudentPage('pageSchedule')">
-                        <div class="icon">📅</div>
-                        <div class="title">جدول الحصص الأسبوعي</div>
-                    </div>
-                    <div class="menu-card" onclick="showStudentPage('pageAbsence')">
-                        <div class="icon">🚨</div>
-                        <div class="title">سجل الحضور والغياب</div>
-                    </div>
-                    <div class="menu-card" onclick="showStudentPage('pageActiveExam')">
-                        <div class="icon">✍️</div>
-                        <div class="title">خوض الاختبار الأسبوعي</div>
-                    </div>
-                    <div class="menu-card" onclick="showStudentPage('pageExamGrades')">
-                        <div class="icon">📊</div>
-                        <div class="title">سجل درجات الاختبارات</div>
-                    </div>
+                    <div class="menu-card" onclick="showStudentPage('pageSchedule')"><div class="icon">📅</div><div class="title">جدول الحصص الأسبوعي</div></div>
+                    <div class="menu-card" onclick="showStudentPage('pageAbsence')"><div class="icon">🚨</div><div class="title">سجل الحضور والغياب</div></div>
+                    <div class="menu-card" onclick="showStudentPage('pageActiveExam')"><div class="icon">✍️</div><div class="title">خوض الاختبار الأسبوعي</div></div>
+                    <div class="menu-card" onclick="showStudentPage('pageExamGrades')"><div class="icon">📊</div><div class="title">سجل درجات الاختبارات</div></div>
                 </div>
             </div>
-
             <div id="pageSchedule" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#2c3e50; margin-top:0;">📅 جدول الحصص الأسبوعي بالسنتر</h3>
@@ -252,19 +99,16 @@
                     <tr><td>الخميس</td><td>دراسات اجتماعية</td><td>12:00 ظهراً</td></tr>
                 </table>
             </div>
-
             <div id="pageAbsence" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#dc3545; margin-top:0;">🚨 سجل الحضور والغياب الخاص بك</h3>
                 <div id="studentAbsenceContainer" style="font-size:12px;">جاري جلب التقارير...</div>
             </div>
-
             <div id="pageActiveExam" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#007bff; margin-top:0;">✍️ الاختبار الأسبوعي</h3>
                 <div id="activeExamContainer">جاري تحميل الاختبار...</div>
             </div>
-
             <div id="pageExamGrades" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#28a745; margin-top:0;">📊 سجل درجاتك في الامتحانات الأسبوعية</h3>
@@ -272,50 +116,30 @@
             </div>
         </div>
 
-        <!-- ================= 3. لوحة تحكم ولي الأمر ================= -->
         <div id="parentView" class="parent-view">
             <div class="brand-header">
                 <h2 style="color: #2c3e50; margin: 0; font-size: 18px;">لوحة ولي الأمر 👨‍👧</h2>
                 <p style="color: #6c757d; font-size: 12px; margin: 3px 0 0 0;">متابعة الطالب: <span id="parentTargetStudent" style="font-weight:bold; color:#007bff;"></span></p>
             </div>
-
-            <div class="announcement-box">
-                📢 <strong>تنبيه لولي الأمر:</strong> يمكنكم التواصل مباشرة مع المدرسين عبر قسم "ملاحظات وتعليقات المدرسين".
-            </div>
-
+            <div class="announcement-box">📢 <strong>تنبيه لولي الأمر:</strong> يمكنكم التواصل مباشرة مع المدرسين عبر قسم "ملاحظات وتعليقات المدرسين".</div>
             <div id="parentMainMenu">
                 <div class="menu-grid">
-                    <div class="menu-card" onclick="showParentPage('parentPageExams')">
-                        <div class="icon">📊</div>
-                        <div class="title">درجات ابنك في الاختبارات</div>
-                    </div>
-                    <div class="menu-card" onclick="showParentPage('parentPageAbsence')">
-                        <div class="icon">🚨</div>
-                        <div class="title">سجل حضور وغياب ابنك</div>
-                    </div>
-                    <div class="menu-card" onclick="showParentPage('parentPageSchedule')">
-                        <div class="icon">📅</div>
-                        <div class="title">جدول حصص ومواد ابنك</div>
-                    </div>
-                    <div class="menu-card" onclick="showParentPage('parentPageComments')">
-                        <div class="icon">💬</div>
-                        <div class="title">ملاحظات وتعليقات المدرسين</div>
-                    </div>
+                    <div class="menu-card" onclick="showParentPage('parentPageExams')"><div class="icon">📊</div><div class="title">درجات ابنك في الاختبارات</div></div>
+                    <div class="menu-card" onclick="showParentPage('parentPageAbsence')"><div class="icon">🚨</div><div class="title">سجل حضور وغياب ابنك</div></div>
+                    <div class="menu-card" onclick="showParentPage('parentPageSchedule')"><div class="icon">📅</div><div class="title">جدول حصص ومواد ابنك</div></div>
+                    <div class="menu-card" onclick="showParentPage('parentPageComments')"><div class="icon">💬</div><div class="title">ملاحظات وتعليقات المدرسين</div></div>
                 </div>
             </div>
-
             <div id="parentPageExams" class="sub-page">
                 <button class="back-btn" onclick="showParentPage('parentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#28a745; margin-top:0;">📊 درجات ابنك في الاختبارات الأسبوعية</h3>
                 <div id="parentExamGradesContainer" style="font-size:12px;">جاري التحميل...</div>
             </div>
-
             <div id="parentPageAbsence" class="sub-page">
                 <button class="back-btn" onclick="showParentPage('parentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#dc3545; margin-top:0;">🚨 سجل حضور وغياب ابنك بالسنتر</h3>
                 <div id="parentAbsenceContainer" style="font-size:12px;">جاري التحميل...</div>
             </div>
-
             <div id="parentPageSchedule" class="sub-page">
                 <button class="back-btn" onclick="showParentPage('parentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#2c3e50; margin-top:0;">📅 جدول حصص ومواد ابنك الدراسية</h3>
@@ -328,61 +152,31 @@
                     <tr><td>الخميس</td><td>دراسات اجتماعية</td><td>12:00 ظهراً</td></tr>
                 </table>
             </div>
-
             <div id="parentPageComments" class="sub-page">
                 <button class="back-btn" onclick="showParentPage('parentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#007bff; margin-top:0;">💬 التواصل والملاحظات مع المدرسين</h3>
                 <div class="chat-box" id="parentChatBox">جاري تحميل المحادثة...</div>
-                <div class="form-group">
-                    <textarea id="parentCommentInput" rows="2" placeholder="اكتب تعليقاً أو استفساراً للمدرس..."></textarea>
-                </div>
+                <div class="form-group"><textarea id="parentCommentInput" rows="2" placeholder="اكتب تعليقاً أو استفساراً للمدرس..."></textarea></div>
                 <button type="button" onclick="sendParentComment()">إرسال التعليق</button>
             </div>
         </div>
 
-        <!-- ================= 4. لوحة تحكم المدرس / المدير ================= -->
         <div id="teacherView" class="teacher-view">
             <div class="brand-header">
                 <h2 style="color: #2c3e50; margin: 0; font-size: 18px;"><span id="panelRoleTitle">لوحة المعلم</span>: <span id="teacherDisplayName"></span></h2>
             </div>
-
             <div id="teacherMainMenu">
                 <div class="menu-grid" id="teacherMenuGrid">
-                    <div class="menu-card" id="cardTeacherCheckin" onclick="showTeacherPage('pageTeacherAttendance')">
-                        <div class="icon">⏱️</div>
-                        <div class="title">بصمة الحضور والانصراف</div>
-                    </div>
-                    <div class="menu-card" id="cardExamBuilder" onclick="showTeacherPage('pageCreateExam')">
-                        <div class="icon">✍️</div>
-                        <div class="title">إعداد ونشر اختبار أسبوعي</div>
-                    </div>
-                    <div class="menu-card" onclick="showTeacherPage('pageStudentResults')">
-                        <div class="icon">📈</div>
-                        <div class="title">نتائج ودرجات الطلاب</div>
-                    </div>
-                    <div class="menu-card" onclick="showTeacherPage('pageStudentAbsence')">
-                        <div class="icon">📋</div>
-                        <div class="title">تسجيل غياب الطلاب بالحصة</div>
-                    </div>
-                    <div class="menu-card" onclick="showTeacherPage('pageTeacherComments')">
-                        <div class="icon">💬</div>
-                        <div class="title">ملاحظات أولياء الأمور</div>
-                    </div>
-                    <div class="menu-card" id="cardManagerAttendanceLog" style="display:none; background:#e3f2fd;" onclick="showTeacherPage('pageManagerAttendanceLog')">
-                        <div class="icon">🔍</div>
-                        <div class="title">متابعة بصمات المدرسين</div>
-                    </div>
-                    <div class="menu-card" id="cardManagerAbsenceLog" style="display:none; background:#fce4ec;" onclick="showTeacherPage('pageManagerAbsenceLog')">
-                        <div class="icon">🚨</div>
-                        <div class="title">متابعة غياب الطلاب العام</div>
-                    </div>
-                    <div class="menu-card" id="cardManagerParentsLog" style="display:none; background:#e8f5e9;" onclick="showTeacherPage('pageManagerParentsLog')">
-                        <div class="icon">👨‍👩‍👧</div>
-                        <div class="title">حصر وإدارة أولياء الأمور</div>
-                    </div>
+                    <div class="menu-card" id="cardTeacherCheckin" onclick="showTeacherPage('pageTeacherAttendance')"><div class="icon">⏱️</div><div class="title">بصمة الحضور والانصراف</div></div>
+                    <div class="menu-card" id="cardExamBuilder" onclick="showTeacherPage('pageCreateExam')"><div class="icon">✍️</div><div class="title">إعداد ونشر اختبار أسبوعي</div></div>
+                    <div class="menu-card" onclick="showTeacherPage('pageStudentResults')"><div class="icon">📈</div><div class="title">نتائج ودرجات الطلاب</div></div>
+                    <div class="menu-card" onclick="showTeacherPage('pageStudentAbsence')"><div class="icon">📋</div><div class="title">تسجيل غياب الطلاب بالحصة</div></div>
+                    <div class="menu-card" onclick="showTeacherPage('pageTeacherComments')"><div class="icon">💬</div><div class="title">ملاحظات أولياء الأمور</div></div>
+                    <div class="menu-card" id="cardManagerAttendanceLog" style="display:none; background:#e3f2fd;" onclick="showTeacherPage('pageManagerAttendanceLog')"><div class="icon">🔍</div><div class="title">متابعة بصمات المدرسين</div></div>
+                    <div class="menu-card" id="cardManagerAbsenceLog" style="display:none; background:#fce4ec;" onclick="showTeacherPage('pageManagerAbsenceLog')"><div class="icon">🚨</div><div class="title">متابعة غياب الطلاب العام</div></div>
+                    <div class="menu-card" id="cardManagerParentsLog" style="display:none; background:#e8f5e9;" onclick="showTeacherPage('pageManagerParentsLog')"><div class="icon">👨‍👩‍👧</div><div class="title">حصر وإدارة أولياء الأمور</div></div>
                 </div>
             </div>
-
             <div id="pageTeacherAttendance" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#2c3e50; margin-top:0;">⏱️ تسجيل بصمة المعلم بالحصة</h3>
@@ -403,7 +197,6 @@
                 </div>
                 <div id="attendanceMsg" style="font-size:12px; text-align:center; font-weight:bold; margin-top:8px;"></div>
             </div>
-
             <div id="pageCreateExam" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#007bff; margin-top:0;">✍️ إعداد الاختبار الأسبوعي (5 أسئلة)</h3>
@@ -418,26 +211,19 @@
                         <option value="الصف الثالث الإعدادي">الصف الثالث الإعدادي</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>اسم المادة:</label>
-                    <input type="text" id="examSubjectInput" placeholder="مثال: رياضيات / علوم...">
-                </div>
+                <div class="form-group"><label>اسم المادة:</label><input type="text" id="examSubjectInput" placeholder="مثال: رياضيات / علوم..."></div>
                 <div id="questionsBuilderContainer"></div>
                 <button type="button" style="background-color: #007bff; margin-top: 10px;" onclick="saveAndSendExam()">إرسال الاختبار للطلاب</button>
                 <div id="examMsg" style="font-size:12px; text-align:center; font-weight:bold; margin-top:8px;"></div>
             </div>
-
             <div id="pageStudentResults" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#28a745; margin-top:0;">📈 جدول نتائج درجات الطلاب في الامتحانات الأسبوعية</h3>
                 <table class="custom-table">
-                    <thead>
-                        <tr><th>اسم الطالب</th><th>المرحلة</th><th>المادة</th><th>الدرجة</th></tr>
-                    </thead>
+                    <thead><tr><th>اسم الطالب</th><th>المرحلة</th><th>المادة</th><th>الدرجة</th></tr></thead>
                     <tbody id="allStudentsExamResultsBody"><tr><td colspan="4">جاري التحميل...</td></tr></tbody>
                 </table>
             </div>
-
             <div id="pageStudentAbsence" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#dc3545; margin-top:0;">📋 رصد غياب الطلاب بالصفوف</h3>
@@ -453,26 +239,19 @@
                     </select>
                 </div>
                 <table class="custom-table">
-                    <thead>
-                        <tr><th>اسم الطالب</th><th>الغياب (اضغط إذا غائب ❌)</th></tr>
-                    </thead>
+                    <thead><tr><th>اسم الطالب</th><th>الغياب (اضغط إذا غائب ❌)</th></tr></thead>
                     <tbody id="attendanceTableBody"></tbody>
                 </table>
                 <button type="button" style="margin-top: 10px; background-color: #28a745;" onclick="submitAbsenceReport()">إرسال تقرير الغياب</button>
                 <div id="absenceMsg" style="font-size:12px; text-align:center; font-weight:bold; margin-top:8px;"></div>
             </div>
-
             <div id="pageTeacherComments" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#007bff; margin-top:0;">💬 الملاحظات والتواصل مع أولياء الأمور</h3>
                 <div class="chat-box" id="teacherChatBox">جاري تحميل المحادثات...</div>
-                <div class="form-group">
-                    <label>اكتب تعليقاً لولي الأمر:</label>
-                    <textarea id="teacherCommentInput" rows="2" placeholder="اكتب ملاحظتك هنا..."></textarea>
-                </div>
+                <div class="form-group"><label>اكتب تعليقاً لولي الأمر:</label><textarea id="teacherCommentInput" rows="2" placeholder="اكتب ملاحظتك هنا..."></textarea></div>
                 <button type="button" onclick="sendTeacherComment()">إرسال التعليق لولي الأمر</button>
             </div>
-
             <div id="pageManagerAttendanceLog" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#007bff; margin-top:0;">🔍 سجل بصمات الحضور والانصراف للمعلمين</h3>
@@ -481,7 +260,6 @@
                     <tbody id="managerAttendanceLogBody"><tr><td colspan="4">جاري التحميل...</td></tr></tbody>
                 </table>
             </div>
-
             <div id="pageManagerAbsenceLog" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#dc3545; margin-top:0;">🚨 تقارير الغياب الواردة من المعلمين</h3>
@@ -490,7 +268,6 @@
                     <tbody id="managerAbsenceLogBody"><tr><td colspan="3">جاري التحميل...</td></tr></tbody>
                 </table>
             </div>
-
             <div id="pageManagerParentsLog" class="sub-page">
                 <button class="back-btn" onclick="showTeacherPage('teacherMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:14px; color:#28a745; margin-top:0;">👨‍👩‍👧 حصر حسابات أولياء الأمور والطلاب المرتبطين بهم</h3>
@@ -524,7 +301,6 @@
             if (pageId === "studentMainMenu") document.getElementById("studentMainMenu").style.display = "block";
             else document.getElementById(pageId).style.display = "block";
         }
-
         function showParentPage(pageId) {
             document.getElementById("parentMainMenu").style.display = "none";
             document.querySelectorAll("#parentView .sub-page").forEach(p => p.style.display = "none");
@@ -536,7 +312,6 @@
                 if (pageId === 'parentPageComments') loadParentComments(targetStudentForParent);
             }
         }
-
         function showTeacherPage(pageId) {
             document.getElementById("teacherMainMenu").style.display = "none";
             document.querySelectorAll("#teacherView .sub-page").forEach(p => p.style.display = "none");
@@ -549,36 +324,11 @@
                 if (pageId === 'pageManagerParentsLog') loadManagerParentsLog();
             }
         }
-
         function initTeacherExamBuilder() {
             const container = document.getElementById("questionsBuilderContainer");
             let html = "";
             for (let i = 1; i <= 5; i++) {
-                html += `
-                    <div class="question-box">
-                        <label style="font-weight:bold; color:#007bff; font-size:12px;">السؤال رقم ${i}:</label>
-                        <div class="form-group" style="margin-bottom:6px;">
-                            <input type="text" id="q_text_${i}" placeholder="اكتب نص السؤال...">
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
-                            <div>
-                                <label style="font-size:11px;">نوع السؤال:</label>
-                                <select id="q_type_${i}" onchange="toggleOptionsInput(${i})">
-                                    <option value="mcq">اختيار من متعدد</option>
-                                    <option value="tf">صح وخطأ</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="font-size:11px;">الإجابة الصحيحة بالضبط:</label>
-                                <input type="text" id="q_ans_${i}" placeholder="الإجابة...">
-                            </div>
-                        </div>
-                        <div class="form-group" id="options_wrapper_${i}" style="margin-bottom:0;">
-                            <label style="font-size:11px; color:#555;">الخيارات المتاحة (افصل بينها بفاصلة):</label>
-                            <input type="text" id="q_options_${i}" placeholder="مثال: 5 ، 10 ، 15">
-                        </div>
-                    </div>
-                `;
+                html += `<div class="question-box"><label style="font-weight:bold; color:#007bff; font-size:12px;">السؤال رقم ${i}:</label><div class="form-group" style="margin-bottom:6px;"><input type="text" id="q_text_${i}" placeholder="اكتب نص السؤال..."></div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;"><div><label style="font-size:11px;">نوع السؤال:</label><select id="q_type_${i}" onchange="toggleOptionsInput(${i})"><option value="mcq">اختيار من متعدد</option><option value="tf">صح وخطأ</option></select></div><div><label style="font-size:11px;">الإجابة الصحيحة:</label><input type="text" id="q_ans_${i}" placeholder="الإجابة..."></div></div><div class="form-group" id="options_wrapper_${i}" style="margin-bottom:0;"><label style="font-size:11px; color:#555;">الخيارات (افصل بفاصلة):</label><input type="text" id="q_options_${i}" placeholder="مثال: 5 ، 10 ، 15"></div></div>`;
             }
             container.innerHTML = html;
         }
@@ -588,39 +338,20 @@
         };
         initTeacherExamBuilder();
 
-        // زر تسجيل الدخول
         loginBtn.addEventListener("click", async () => {
             const selectedRole = document.getElementById("roleSelect").value;
             const enteredUsername = document.getElementById("usernameInput").value.trim();
             const enteredPassword = document.getElementById("passwordInput").value.trim();
-
-            if (!enteredUsername || !enteredPassword) {
-                errorMsg.textContent = "أدخل اسم المستخدم وكلمة المرور!";
-                return;
-            }
-
-            errorMsg.style.color = "#007bff";
-            errorMsg.textContent = "جاري التحقق من الصلاحيات...";
-
+            if (!enteredUsername || !enteredPassword) { errorMsg.textContent = "أدخل اسم المستخدم وكلمة المرور!"; return; }
+            errorMsg.style.color = "#007bff"; errorMsg.textContent = "جاري التحقق من الصلاحيات...";
             try {
                 if (selectedRole === "مدرس" || selectedRole === "مدير") {
                     const snap = await db.collection("teachers").where("username", "==", enteredUsername).get();
-                    if (snap.empty) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "اسم المستخدم غير موجود في سجلات المدرسين/الإدارة!";
-                        return;
-                    }
+                    if (snap.empty) { errorMsg.style.color = "red"; errorMsg.textContent = "اسم المستخدم غير موجود!"; return; }
                     const userData = snap.docs[0].data();
-                    
-                    if (userData.password !== enteredPassword) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "كلمة المرور غير صحيحة!";
-                        return;
-                    }
-
+                    if (userData.password !== enteredPassword) { errorMsg.style.color = "red"; errorMsg.textContent = "كلمة المرور غير صحيحة!"; return; }
                     currentUserName = userData.username;
                     document.getElementById("teacherDisplayName").textContent = currentUserName;
-
                     if (selectedRole === "مدير") {
                         document.getElementById("panelRoleTitle").textContent = "لوحة المدير";
                         document.getElementById("cardTeacherCheckin").style.display = "none";
@@ -636,101 +367,48 @@
                         document.getElementById("cardManagerAbsenceLog").style.display = "none";
                         document.getElementById("cardManagerParentsLog").style.display = "none";
                     }
-
-                    loginView.style.display = "none";
-                    teacherView.style.display = "block";
-                    showTeacherPage('teacherMainMenu');
-                    loadStudentsForAttendance();
-                    loadAllStudentsExamResults();
-
+                    loginView.style.display = "none"; teacherView.style.display = "block";
+                    showTeacherPage('teacherMainMenu'); loadStudentsForAttendance(); loadAllStudentsExamResults();
                 } else if (selectedRole === "ولي أمر") {
                     const snap = await db.collection("family").where("username", "==", enteredUsername).get();
-
-                    if (snap.empty) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "اسم المستخدم غير موجود في قاعدة بيانات أولياء الأمور!";
-                        return;
-                    }
-
+                    if (snap.empty) { errorMsg.style.color = "red"; errorMsg.textContent = "اسم المستخدم غير موجود!"; return; }
                     const parentData = snap.docs[0].data();
-
-                    if (parentData.password !== enteredPassword) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "كلمة المرور غير صحيحة!";
-                        return;
-                    }
-
+                    if (parentData.password !== enteredPassword) { errorMsg.style.color = "red"; errorMsg.textContent = "كلمة المرور غير صحيحة!"; return; }
                     targetStudentForParent = parentData.studentName || "مريم عماد";
                     document.getElementById("parentTargetStudent").textContent = targetStudentForParent;
-                    loginView.style.display = "none";
-                    parentView.style.display = "block";
+                    loginView.style.display = "none"; parentView.style.display = "block";
                     showParentPage('parentMainMenu');
-
                 } else {
                     const snap = await db.collection("users").where("username", "==", enteredUsername).get();
-                    if (snap.empty) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "اسم المستخدم غير موجود في قاعدة بيانات الطلاب!";
-                        return;
-                    }
+                    if (snap.empty) { errorMsg.style.color = "red"; errorMsg.textContent = "اسم المستخدم غير موجود!"; return; }
                     const userData = snap.docs[0].data();
-
-                    if (userData.password !== enteredPassword) {
-                        errorMsg.style.color = "red";
-                        errorMsg.textContent = "كلمة المرور غير صحيحة!";
-                        return;
-                    }
-
+                    if (userData.password !== enteredPassword) { errorMsg.style.color = "red"; errorMsg.textContent = "كلمة المرور غير صحيحة!"; return; }
                     currentUserName = userData.username;
                     loggedInStudentGrade = userData.grade || "الصف الرابع الابتدائي";
                     document.getElementById("studentDisplayName").textContent = currentUserName;
                     document.getElementById("studentGradeText").textContent = `المرحلة الدراسية: ${loggedInStudentGrade}`;
-                    loginView.style.display = "none";
-                    dashboardView.style.display = "block";
+                    loginView.style.display = "none"; dashboardView.style.display = "block";
                     showStudentPage('studentMainMenu');
-
-                    loadActiveExamForStudent();
-                    loadStudentAbsenceReports(currentUserName);
-                    loadStudentExamGrades(currentUserName);
+                    loadActiveExamForStudent(); loadStudentAbsenceReports(currentUserName); loadStudentExamGrades(currentUserName);
                 }
-            } catch (err) {
-                console.error(err);
-                errorMsg.style.color = "red";
-                errorMsg.textContent = "حدث خطأ في الاتصال بقاعدة البيانات.";
-            }
+            } catch (err) { errorMsg.style.color = "red"; errorMsg.textContent = "حدث خطأ في الاتصال بقاعدة البيانات."; }
         });
 
-        // وظائف الطالب
         async function loadActiveExamForStudent() {
             const container = document.getElementById("activeExamContainer");
             try {
                 const docSnap = await db.collection("exams").doc(`exam_${loggedInStudentGrade}`).get();
-                if (!docSnap.exists) {
-                    container.innerHTML = "<p style='font-size: 12px; color: #6c757d;'>لا يوجد اختبار نشط حالياً لمرحلتك.</p>";
-                    return;
-                }
+                if (!docSnap.exists) { container.innerHTML = "<p style='font-size: 12px; color: #6c757d;'>لا يوجد اختبار نشط حالياً.</p>"; return; }
                 const exam = docSnap.data();
                 let html = `<p style="font-weight:bold; color:#007bff; margin-bottom:10px;">المادة: ${exam.subject}</p>`;
-
                 exam.questions.forEach((q, index) => {
-                    html += `
-                        <div class="question-box">
-                            <p style="font-weight: bold; margin-bottom: 8px;">س${index+1}: ${q.text}</p>
-                            <div style="margin-bottom: 8px;">
-                    `;
-                    if (q.options) {
-                        q.options.forEach(opt => {
-                            html += `<label style="display:inline-flex; align-items:center; gap:5px; margin-left:15px; font-size:12px; cursor:pointer;"><input type="radio" name="student_choice_${index}" value="${opt}"> ${opt}</label>`;
-                        });
-                    }
+                    html += `<div class="question-box"><p style="font-weight: bold; margin-bottom: 8px;">س${index+1}: ${q.text}</p><div style="margin-bottom: 8px;">`;
+                    if (q.options) { q.options.forEach(opt => { html += `<label style="display:inline-flex; align-items:center; gap:5px; margin-left:15px; font-size:12px; cursor:pointer;"><input type="radio" name="student_choice_${index}" value="${opt}"> ${opt}</label>`; }); }
                     html += `</div><div id="result_q_${index}" style="font-size: 11px; font-weight: bold;"></div></div>`;
                 });
-
                 html += `<button type="button" onclick="submitStudentExam('${exam.subject}', ${JSON.stringify(exam.questions).replace(/"/g, '&quot;')})">إرسال الإجابات وحفظ الدرجة</button>`;
                 container.innerHTML = html;
-            } catch (e) {
-                container.innerHTML = "<p style='color:red; font-size:12px;'>تعذر تحميل الاختبار.</p>";
-            }
+            } catch (e) { container.innerHTML = "<p style='color:red; font-size:12px;'>تعذر تحميل الاختبار.</p>"; }
         }
 
         window.submitStudentExam = async function(subject, questions) {
@@ -739,23 +417,11 @@
                 const selectedRadio = document.querySelector(`input[name="student_choice_${index}"]:checked`);
                 const resDiv = document.getElementById(`result_q_${index}`);
                 if (!selectedRadio) { resDiv.textContent = "لم تقم باختيار إجابة!"; return; }
-                if (selectedRadio.value.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()) {
-                    score++;
-                    resDiv.style.color = "green"; resDiv.textContent = "إجابة صحيحة 🎉";
-                } else {
-                    resDiv.style.color = "red"; resDiv.innerHTML = `إجابة خاطئة ❌ (الإجابة: <strong>${q.correctAnswer}</strong>)`;
-                }
+                if (selectedRadio.value.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()) { score++; resDiv.style.color = "green"; resDiv.textContent = "إجابة صحيحة 🎉"; }
+                else { resDiv.style.color = "red"; resDiv.innerHTML = `إجابة خاطئة ❌ (الإجابة: <strong>${q.correctAnswer}</strong>)`; }
             });
-
             try {
-                await db.collection("exam_results").add({
-                    studentName: currentUserName,
-                    grade: loggedInStudentGrade,
-                    subject: subject,
-                    score: score,
-                    total: questions.length,
-                    timestamp: new Date()
-                });
+                await db.collection("exam_results").add({ studentName: currentUserName, grade: loggedInStudentGrade, subject: subject, score: score, total: questions.length, timestamp: new Date() });
                 alert(`تم إرسال إجاباتك! درجتك هي: ${score} من ${questions.length}`);
                 loadStudentExamGrades(currentUserName);
             } catch (err) { console.error(err); }
@@ -767,10 +433,7 @@
                 const snap = await db.collection("exam_results").where("studentName", "==", studentName).get();
                 if (snap.empty) { container.innerHTML = "لم تقم بأي اختبارات بعد."; return; }
                 let html = "<ul style='margin:0; padding-right:15px;'>";
-                snap.forEach(doc => {
-                    const res = doc.data();
-                    html += `<li>اختبار (${res.subject}): <strong style="color:green;">${res.score} من ${res.total}</strong></li>`;
-                });
+                snap.forEach(doc => { const res = doc.data(); html += `<li>اختبار (${res.subject}): <strong style="color:green;">${res.score} من ${res.total}</strong></li>`; });
                 html += "</ul>"; container.innerHTML = html;
             } catch (e) { container.innerHTML = "تعذر تحميل الدرجات."; }
         }
@@ -780,27 +443,18 @@
             try {
                 const snap = await db.collection("absence_reports").get();
                 let found = [];
-                snap.forEach(doc => {
-                    const report = doc.data();
-                    if (report.absentStudents && report.absentStudents.includes(studentName)) {
-                        found.push(`📅 تاريخ: ${report.date} - <span style="color:red; font-weight:bold;">غائب في حصة (${report.grade})</span>`);
-                    }
-                });
+                snap.forEach(doc => { const report = doc.data(); if (report.absentStudents && report.absentStudents.includes(studentName)) { found.push(`📅 تاريخ: ${report.date} - <span style="color:red; font-weight:bold;">غائب في حصة (${report.grade})</span>`); } });
                 container.innerHTML = found.length > 0 ? found.join("<br>") : "<span style='color:green;'>سجل الحضور ممتاز! لا توجد حالات غياب.</span>";
             } catch (e) { container.innerHTML = "تعذر تحميل التقارير."; }
         }
 
-        // وظائف ولي الأمر
         async function loadParentExamGrades(studentName) {
             const container = document.getElementById("parentExamGradesContainer");
             try {
                 const snap = await db.collection("exam_results").where("studentName", "==", studentName).get();
                 if (snap.empty) { container.innerHTML = `لا توجد اختبارات مسجلة للطالب (${studentName}) بعد.`; return; }
                 let html = "<ul style='margin:0; padding-right:15px;'>";
-                snap.forEach(doc => {
-                    const res = doc.data();
-                    html += `<li>اختبار مادة (${res.subject}): <strong style="color:green;">${res.score} من ${res.total}</strong></li>`;
-                });
+                snap.forEach(doc => { const res = doc.data(); html += `<li>اختبار مادة (${res.subject}): <strong style="color:green;">${res.score} من ${res.total}</strong></li>`; });
                 html += "</ul>"; container.innerHTML = html;
             } catch (e) { container.innerHTML = "تعذر تحميل درجات الابن."; }
         }
@@ -810,12 +464,7 @@
             try {
                 const snap = await db.collection("absence_reports").get();
                 let found = [];
-                snap.forEach(doc => {
-                    const report = doc.data();
-                    if (report.absentStudents && report.absentStudents.includes(studentName)) {
-                        found.push(`📅 تاريخ: ${report.date} - <span style="color:red; font-weight:bold;">غائب في حصة (${report.grade})</span>`);
-                    }
-                });
+                snap.forEach(doc => { const report = doc.data(); if (report.absentStudents && report.absentStudents.includes(studentName)) { found.push(`📅 تاريخ: ${report.date} - <span style="color:red; font-weight:bold;">غائب في حصة (${report.grade})</span>`); } });
                 container.innerHTML = found.length > 0 ? found.join("<br>") : `<span style='color:green;'>سجل حضور الطالب (${studentName}) ممتاز ولا توجد غيابات.</span>`;
             } catch (e) { container.innerHTML = "تعذر تحميل تقارير الغياب."; }
         }
@@ -824,14 +473,10 @@
             const chatBox = document.getElementById("parentChatBox");
             try {
                 const snap = await db.collection("comments").where("studentName", "==", studentName).orderBy("timestamp", "asc").get();
-                if (snap.empty) { chatBox.innerHTML = "لا توجد تعليقات سابقة. يمكنك بدء المحادثة مع المدرس."; return; }
+                if (snap.empty) { chatBox.innerHTML = "لا توجد تعليقات سابقة."; return; }
                 let html = "";
-                snap.forEach(doc => {
-                    const c = doc.data();
-                    html += `<div style="margin-bottom:6px;"><strong>${c.sender}:</strong> ${c.text} <span style="font-size:9px; color:#888;">(${c.date})</span></div>`;
-                });
-                chatBox.innerHTML = html;
-                chatBox.scrollTop = chatBox.scrollHeight;
+                snap.forEach(doc => { const c = doc.data(); html += `<div style="margin-bottom:6px;"><strong>${c.sender}:</strong> ${c.text} <span style="font-size:9px; color:#888;">(${c.date})</span></div>`; });
+                chatBox.innerHTML = html; chatBox.scrollTop = chatBox.scrollHeight;
             } catch (e) { chatBox.innerHTML = "تعذر تحميل التعليقات."; }
         }
 
@@ -840,25 +485,17 @@
             if (!text) { alert("اكتب تعليقاً أولاً!"); return; }
             try {
                 const now = new Date();
-                await db.collection("comments").add({
-                    studentName: targetStudentForParent,
-                    sender: "ولي الأمر",
-                    text: text,
-                    date: now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'}),
-                    timestamp: now
-                });
+                await db.collection("comments").add({ studentName: targetStudentForParent, sender: "ولي الأمر", text: text, date: now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'}), timestamp: now });
                 document.getElementById("parentCommentInput").value = "";
                 loadParentComments(targetStudentForParent);
             } catch (err) { alert("فشل إرسال التعليق."); }
         }
 
-        // وظائف المدرس
         async function saveAndSendExam() {
             const grade = document.getElementById("examTargetGradeSelect").value;
             const subject = document.getElementById("examSubjectInput").value.trim() || "عام";
             const msg = document.getElementById("examMsg");
             let questionsList = [];
-
             for (let i = 1; i <= 5; i++) {
                 const text = document.getElementById(`q_text_${i}`).value.trim();
                 const type = document.getElementById(`q_type_${i}`).value;
@@ -868,7 +505,6 @@
                 let optionsArr = (type === "mcq") ? optionsRaw.split(/[,،]/).map(item => item.trim()).filter(Boolean) : ["صح", "خطأ"];
                 questionsList.push({ text, type, correctAnswer: ans, options: optionsArr });
             }
-
             try {
                 await db.collection("exams").doc(`exam_${grade}`).set({ grade, subject, questions: questionsList, timestamp: new Date() });
                 msg.style.color = "green"; msg.textContent = `تم إرسال الاختبار بنجاح لـ (${grade})!`;
@@ -881,10 +517,7 @@
                 const snap = await db.collection("exam_results").orderBy("timestamp", "desc").get();
                 if (snap.empty) { tbody.innerHTML = "<tr><td colspan='4'>لا توجد نتائج مسجلة.</td></tr>"; return; }
                 tbody.innerHTML = "";
-                snap.forEach(doc => {
-                    const r = doc.data();
-                    tbody.innerHTML += `<tr><td>${r.studentName}</td><td>${r.grade || 'غير محدد'}</td><td>${r.subject}</td><td><strong style="color:green;">${r.score} / ${r.total}</strong></td></tr>`;
-                });
+                snap.forEach(doc => { const r = doc.data(); tbody.innerHTML += `<tr><td>${r.studentName}</td><td>${r.grade || 'غير محدد'}</td><td>${r.subject}</td><td><strong style="color:green;">${r.score} / ${r.total}</strong></td></tr>`; });
             } catch (e) { tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>تعذر جلب النتائج.</td></tr>"; }
         }
 
@@ -896,10 +529,7 @@
                 const snapshot = await db.collection("users").where("grade", "==", grade).get();
                 tbody.innerHTML = "";
                 if (snapshot.empty) { tbody.innerHTML = "<tr><td colspan='2'>لا يوجد طلاب مسجلين بالصف.</td></tr>"; return; }
-                snapshot.forEach(doc => {
-                    const student = doc.data();
-                    tbody.innerHTML += `<tr><td>${student.username}</td><td><input type="checkbox" class="absence-checkbox" value="${student.username}" style="width: 20px; height: 20px; cursor: pointer;"> (غياب)</td></tr>`;
-                });
+                snapshot.forEach(doc => { const student = doc.data(); tbody.innerHTML += `<tr><td>${student.username}</td><td><input type="checkbox" class="absence-checkbox" value="${student.username}" style="width: 20px; height: 20px; cursor: pointer;"> (غياب)</td></tr>`; });
             } catch (err) { tbody.innerHTML = "<tr><td colspan='2' style='color:red;'>خطأ في الجلب.</td></tr>"; }
         }
 
@@ -923,12 +553,8 @@
                 const snap = await db.collection("comments").orderBy("timestamp", "asc").get();
                 if (snap.empty) { chatBox.innerHTML = "لا توجد تعليقات من أولياء الأمور حالياً."; return; }
                 let html = "";
-                snap.forEach(doc => {
-                    const c = doc.data();
-                    html += `<div style="margin-bottom:6px;"><strong>طالب: ${c.studentName} (${c.sender}):</strong> ${c.text} <span style="font-size:9px; color:#888;">(${c.date})</span></div>`;
-                });
-                chatBox.innerHTML = html;
-                chatBox.scrollTop = chatBox.scrollHeight;
+                snap.forEach(doc => { const c = doc.data(); html += `<div style="margin-bottom:6px;"><strong>طالب: ${c.studentName} (${c.sender}):</strong> ${c.text} <span style="font-size:9px; color:#888;">(${c.date})</span></div>`; });
+                chatBox.innerHTML = html; chatBox.scrollTop = chatBox.scrollHeight;
             } catch (e) { chatBox.innerHTML = "تعذر تحميل التعليقات."; }
         }
 
@@ -937,13 +563,7 @@
             if (!text) { alert("اكتب تعليقاً أولاً!"); return; }
             try {
                 const now = new Date();
-                await db.collection("comments").add({
-                    studentName: "مريم عماد",
-                    sender: "المدرس",
-                    text: text,
-                    date: now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'}),
-                    timestamp: now
-                });
+                await db.collection("comments").add({ studentName: "مريم عماد", sender: "المدرس", text: text, date: now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'}), timestamp: now });
                 document.getElementById("teacherCommentInput").value = "";
                 loadTeacherComments();
             } catch (err) { alert("فشل الإرسال."); }
@@ -955,10 +575,7 @@
                 const snap = await db.collection("attendance").orderBy("timestamp", "desc").get();
                 if (snap.empty) { tbody.innerHTML = "<tr><td colspan='4'>لا توجد بصمات.</td></tr>"; return; }
                 tbody.innerHTML = "";
-                snap.forEach(doc => {
-                    const r = doc.data();
-                    tbody.innerHTML += `<tr><td>${r.teacherName}</td><td><span style="color:${r.type === 'حضور' ? 'green' : 'red'}; font-weight:bold;">${r.type}</span></td><td>${r.grade}</td><td>${r.date} - ${r.time}</td></tr>`;
-                });
+                snap.forEach(doc => { const r = doc.data(); tbody.innerHTML += `<tr><td>${r.teacherName}</td><td><span style="color:${r.type === 'حضور' ? 'green' : 'red'}; font-weight:bold;">${r.type}</span></td><td>${r.grade}</td><td>${r.date} - ${r.time}</td></tr>`; });
             } catch (e) { tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>تعذر الجلب.</td></tr>"; }
         }
 
@@ -968,10 +585,7 @@
                 const snap = await db.collection("absence_reports").orderBy("timestamp", "desc").get();
                 if (snap.empty) { tbody.innerHTML = "<tr><td colspan='3'>لا توجد حالات غياب.</td></tr>"; return; }
                 tbody.innerHTML = "";
-                snap.forEach(doc => {
-                    const r = doc.data();
-                    tbody.innerHTML += `<tr><td>${r.date}</td><td>${r.grade}</td><td><strong style="color:red;">${r.absentStudents.join('، ')}</strong></td></tr>`;
-                });
+                snap.forEach(doc => { const r = doc.data(); tbody.innerHTML += `<tr><td>${r.date}</td><td>${r.grade}</td><td><strong style="color:red;">${r.absentStudents.join('، ')}</strong></td></tr>`; });
             } catch (e) { tbody.innerHTML = "<tr><td colspan='3' style='color:red;'>تعذر الجلب.</td></tr>"; }
         }
 
@@ -979,12 +593,9 @@
             const tbody = document.getElementById("managerParentsLogBody");
             try {
                 const snap = await db.collection("family").get();
-                if (snap.empty) { tbody.innerHTML = "<tr><td colspan='2'>لا توجد حسابات مسجلة لأولياء الأمور.</td></tr>"; return; }
+                if (snap.empty) { tbody.innerHTML = "<tr><td colspan='2'>لا توجد حسابات مسجلة.</td></tr>"; return; }
                 tbody.innerHTML = "";
-                snap.forEach(doc => {
-                    const p = doc.data();
-                    tbody.innerHTML += `<tr><td>${p.username}</td><td><strong style="color:#007bff;">${p.studentName || 'غير محدد'}</strong></td></tr>`;
-                });
+                snap.forEach(doc => { const p = doc.data(); tbody.innerHTML += `<tr><td>${p.username}</td><td><strong style="color:#007bff;">${p.studentName || 'غير محدد'}</strong></td></tr>`; });
             } catch (e) { tbody.innerHTML = "<tr><td colspan='2' style='color:red;'>تعذر جلب البيانات.</td></tr>"; }
         }
 
