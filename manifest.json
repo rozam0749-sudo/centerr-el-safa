@@ -1,16 +1,17 @@
 {
-  "name": "سنتر الصفا",
+  "name": "سنتر الصفا التعليمي",
   "short_name": "الصفا",
   "start_url": "/centerr-el-safa/",
   "scope": "/centerr-el-safa/",
   "display": "standalone",
-  "background_color": "#f0f4f8",
+  "background_color": "#007bff",
   "theme_color": "#007bff",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
