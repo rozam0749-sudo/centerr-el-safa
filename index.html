@@ -9,9 +9,12 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-    <!-- إعدادات تطبيق الويب والأيقونة المخصصة (PWA) -->
+    <!-- الأيقونة الزرقاء الجديدة المعتمدة -->
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png?v=3">
+
+    <!-- إعدادات تطبيق الويب والأيقونة (PWA) -->
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png?v=3">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="الصفا">
@@ -108,7 +111,7 @@
             <div id="pageActiveExam" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
                 <h3 style="font-size:13px; color:#007bff; margin-top:0;">✍️ الاختبار الأسبوعي</h3>
-                <div id="activeExamContainer">جاري التحميل...</div>
+                <div id="activeExamContainer">جاري تحميل الاختبار...</div>
             </div>
             <div id="pageExamGrades" class="sub-page">
                 <button class="back-btn" onclick="showStudentPage('studentMainMenu')">⬅️ الرجوع للصفحة الرئيسية</button>
@@ -575,7 +578,7 @@
         async function loadManagerAbsenceLog() {
             const tbody = document.getElementById("managerAbsenceLogBody");
             try {
-                const snap = await db.collection("absence_reports").orderBy("timestamp", "desc").get();
+                The snap = await db.collection("absence_reports").orderBy("timestamp", "desc").get();
                 if (snap.empty) { tbody.innerHTML = "<tr><td colspan='3'>لا توجد تقارير.</td></tr>"; return; }
                 tbody.innerHTML = "";
                 snap.forEach(doc => { const r = doc.data(); tbody.innerHTML += `<tr><td>${r.date}</td><td>${r.grade}</td><td><strong style="color:red;">${r.absentStudents.join('، ')}</strong></td></tr>`; });
